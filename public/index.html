@@ -9,21 +9,61 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <link rel="stylesheet" href="main.css"/>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /><link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" /></head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
 
 </head>
 
 <body>
     <script src="sketch.js"></script>
 
+    <button type="button">Compile and Run</button>
+    <br/>
+    Args:
+    <input id="args" type="text" hint="args here"/>
+    <br/>
+    Code:
+    <br/>
     <div class="container">
-        <textarea id="text"></textarea>
+        <textarea id="text" rows="50">
+import java.lang.Math; // headers MUST be above the first class
+
+// one class needs to have a main() method
+public class HelloWorld
+{
+  // arguments are passed using the text field below this editor
+  public static void main(String[] args)
+  {
+    OtherClass myObject = new OtherClass("Hello World!");
+    System.out.print(myObject);
+  }
+}
+
+// you can add other public classes to this editor in any order
+public class OtherClass
+{
+  private String message;
+  private boolean answer = false;
+  public OtherClass(String input)
+  {
+    message = "Why, " + input + " Isn't this something?";
+  }
+  public String toString()
+  {
+    return message;
+  }
+}
+
+        </textarea>
+        <br/>
+        Output:
+        <br/>
+        <textarea id="output" readonly rows="10">(output here)</textarea>
     </div>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0//js/froala_editor.pkgd.min.js"></script>
 
 </body>
 </html>
