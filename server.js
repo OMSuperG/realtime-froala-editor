@@ -9,18 +9,19 @@ var io = socket(server);
 io.sockets.on('connection', connection);
 
 var text = {
-    text: ''
+    serverText: ''
 };
 
 function connection(socket){
     console.log('a new user with id ' + socket.id + " has entered");
-    socket.emit('newUser', text);
+    socket.emit('newUser', text.serverText); //doesnt work
 
     socket.on('text', handleTextSent);
 
     function handleTextSent(data){
-        text.text = data.text
-        io.sockets.emit('text', data);
+        text.serverText = data
+        //io.sockets.emit('text', data);
+        socket.broadcast.emit('text', data);
     }
 }
 
