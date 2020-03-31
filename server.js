@@ -1,5 +1,6 @@
 var express = require('express');
 var socket = require('socket.io');
+var request = require('request');
 var app = express();
 var server = app.listen( process.env.PORT || 8080);
 app.use(express.static('public'));
@@ -17,10 +18,25 @@ function connection(socket){
     socket.emit('newUser', text.serverText); //doesnt work
 
     socket.on('text', handleTextSent);
+    socket.on('compile', compileJava);
 
     function handleTextSent(data){
         text.serverText = data
         io.sockets.emit('text', data);
+    }
+
+    function compileJava(data){
+        request.post({
+            url : 'https://www.compilejava.net/',
+            form : {
+                respond : "respond",
+                passargs : data.args,
+                code : data.code
+            }
+        }, function(err, response, body) {
+            console.log(body)
+            socket.emit('compiled', JSON.parse(body).execsout);
+        });
     }
 }
 

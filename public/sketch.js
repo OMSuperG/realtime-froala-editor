@@ -5,13 +5,15 @@ var text = {
 var editor = CodeMirror.fromTextArea(document.getElementById("code_text"), {
     lineNumbers: true,
     mode: "text/x-java",
-    matchBrackets: true
+    matchBrackets: true,
+    viewportMargin: Infinity
 });
 var visualizer = CodeMirror.fromTextArea(document.getElementById("server_text"), {
     lineNumbers: true,
     mode: "text/x-java",
     matchBrackets: true,
-    readOnly: true
+    readOnly: true,
+    viewportMargin: Infinity
 });
 
 function setup(){
@@ -29,6 +31,7 @@ function setup(){
 
     socket.on('text', handleReceivedText);
     socket.on('newUser', updateText);
+    socket.on('compiled', updateOutput);
 }
 
 function updateText(data){
@@ -36,6 +39,10 @@ function updateText(data){
     //var cursorPosition = $('#code_text').prop("selectionStart");
     //$('#code_text').val(data.text);
     //$('#code_text').prop("selectionStart", cursorPosition)
+}
+
+function updateOutput(data){
+     $('#output').val(data);
 }
 
 function handleReceivedText(data){
@@ -50,3 +57,10 @@ function pullFromServer() {
     editor.setValue(visualizer.getValue())
 }
 
+function compileRun(){
+    socket.emit('compile',
+        {
+            code: editor.getValue(),
+            args: $("#args").val()
+        });
+}
