@@ -2,18 +2,28 @@ var socket;
 var text = {
     text: ''
 };
+var editor = CodeMirror.fromTextArea(document.getElementById("code_text"), {
+    lineNumbers: true,
+    mode: "text/x-java",
+    matchBrackets: true
+});
+var visualizer = CodeMirror.fromTextArea(document.getElementById("server_text"), {
+    lineNumbers: true,
+    mode: "text/x-java",
+    matchBrackets: true,
+    readOnly: true
+});
 
 function setup(){
-    socket = io.connect('https://java-kata-helper.herokuapp.com/' || 'http://localhost:8080');
+    socket = io.connect('http://localhost:8080' || 'https://java-kata-helper.herokuapp.com/');
     var oldVal = "";
-    $('#code_text').on("keyup", function() {
-        var currentVal = $(this).val();
+    editor.on("inputRead",function(cm,changeObj){
+        var currentVal = editor.getValue();
         if(currentVal == oldVal) {
             return; //check to prevent multiple simultaneous triggers
         }
 
         oldVal = currentVal;
-        //action to be performed on textarea changed
         socket.emit('text', currentVal);
     });
 
@@ -22,21 +32,21 @@ function setup(){
 }
 
 function updateText(data){
-    var cursorPosition = $('#code_text').prop("selectionStart");
-    $('#code_text').val(data.text);
-    $('#code_text').prop("selectionStart", cursorPosition)
+    //todo update visualizer with data
+    //var cursorPosition = $('#code_text').prop("selectionStart");
+    //$('#code_text').val(data.text);
+    //$('#code_text').prop("selectionStart", cursorPosition)
 }
 
 function handleReceivedText(data){
     console.log(data);
     text.text = data;
-
-    if (data != $('#code_text').val()) {
-        var cursorPosition = $('#code_text').prop("selectionStart");
-        $('#code_text').val(data);
-        $('#code_text').prop("selectionStart", cursorPosition)
-        $('#code_text').prop("selectionEnd", cursorPosition)
+    if (data != visualizer.getValue()) {
+        visualizer.setValue(data);
     }
 }
 
+function pullFromServer() {
+    editor.setValue(visualizer.getValue())
+}
 

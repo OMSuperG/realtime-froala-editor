@@ -11,30 +11,31 @@
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
-
 </head>
 
 <body>
-    <script src="sketch.js"></script>
 
     <button type="button">Compile and Run</button>
+    <button type="button" onclick="pullFromServer()">Pull</button>
     <br/>
     Args:
     <input id="args" type="text" hint="args here"/>
     <br/>
     Code:
     <br/>
-    <div class="container">
-        <textarea id="code_text" rows="50"></textarea>
+        <textarea id="code_text"></textarea>
+    <br/>
+    Server version:
+    <br/>
+        <textarea id="server_text"></textarea>
         <br/>
         Output:
         <br/>
         <textarea id="output" readonly rows="10">(output here)</textarea>
-    </div>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
-
+    <script src="sketch.js"></script>
 </body>
 </html>

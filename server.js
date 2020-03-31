@@ -20,8 +20,7 @@ function connection(socket){
 
     function handleTextSent(data){
         text.serverText = data
-        //io.sockets.emit('text', data);
-        socket.broadcast.emit('text', data);
+        io.sockets.emit('text', data);
     }
 }
 
