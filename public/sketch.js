@@ -19,7 +19,7 @@ var visualizer = CodeMirror.fromTextArea(document.getElementById("server_text"),
 });
 
 function setup(){
-    socket = io.connect('http://localhost:8080' || 'https://java-kata-helper.herokuapp.com/');
+    socket = io.connect('https://java-kata-helper.herokuapp.com/');
     var oldVal = "";
     editor.on("change",function(cm,changeObj){
         var currentVal = editor.getValue();
