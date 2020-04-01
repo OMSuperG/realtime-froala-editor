@@ -18,12 +18,12 @@ function connection(socket){
     console.log('a new user with id ' + socket.id + " has entered");
     socket.emit('newUser', text.serverText); //doesnt work
 
-    socket.on('text', handleTextSent);
     socket.on('compile', compileJava);
+    socket.on('changeObj', changeObjHandler);
 
-    function handleTextSent(data){
-        var lines = data.split("\n")
-        for (var i = 0; i < lines.length; i++) {
+    function changeObjHandler(changeObj) {
+        var lines = changeObj.lines.split("\n")
+        for (var i = changeObj.from; i <= changeObj.to; i++) {
             if (lines[i]!="" && lines[i]!=text.serverLines[i]){
                 text.serverLines[i]=lines[i];
             }

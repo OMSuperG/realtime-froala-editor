@@ -28,7 +28,11 @@ function setup(){
         }
 
         oldVal = currentVal;
-        socket.emit('text', currentVal);
+        socket.emit('changeObj', {
+            from: changeObj.from.line,
+            to: changeObj.to.line,
+            lines: currentVal
+        });
     });
 
     socket.on('text', handleReceivedText);
