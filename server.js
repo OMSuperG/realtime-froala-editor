@@ -24,7 +24,7 @@ function connection(socket){
     function changeObjHandler(changeObj) {
         var lines = changeObj.lines.split("\n")
         for (var i = changeObj.from; i <= changeObj.to; i++) {
-            if (lines[i]!="" && lines[i]!=text.serverLines[i]){
+            if (lines[i]!=text.serverLines[i]){
                 text.serverLines[i]=lines[i];
             }
         }
