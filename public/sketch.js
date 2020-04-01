@@ -24,7 +24,7 @@ function setup(){
     editor.on("change",function(cm,changeObj){
         var currentVal = editor.getValue();
         if(currentVal == oldVal) {
-            return; //check to prevent multiple simultaneous triggers
+            return;
         }
 
         oldVal = currentVal;

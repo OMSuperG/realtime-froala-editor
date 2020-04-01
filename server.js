@@ -10,7 +10,8 @@ var io = socket(server);
 io.sockets.on('connection', connection);
 
 var text = {
-    serverText: ''
+    serverText: '',
+    serverLines: []
 };
 
 function connection(socket){
@@ -21,8 +22,14 @@ function connection(socket){
     socket.on('compile', compileJava);
 
     function handleTextSent(data){
-        text.serverText = data
-        io.sockets.emit('text', data);
+        var lines = data.split("\n")
+        for (var i = 0; i < lines.length; i++) {
+            if (lines[i]!="" && lines[i]!=text.serverLines[i]){
+                text.serverLines[i]=lines[i];
+            }
+        }
+        text.serverText = text.serverLines.join("\n");
+        io.sockets.emit('text', text.serverText);
     }
 
     function compileJava(data){
